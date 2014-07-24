@@ -11,7 +11,7 @@ describe('Controller - Response', function () {
 
   describe('.success()', function () {
 
-    it('should return a 200 status code when sending JSON', function () {
+    it('should return a 200 status code', function () {
       var res = {
         locals : {},
         send   : function (status, data) {
@@ -21,43 +21,12 @@ describe('Controller - Response', function () {
       controller_response.success({}, res);
     });
 
-    it('should send JSON version of res.locals by default', function () {
+    it('should send JSON version of res.locals', function () {
       var res = {
         locals : { key : 'value', some : 'data' },
         send   : function (status, data) {
           data.should.have.property('key').and.equal('value');
           data.should.have.property('some').and.equal('data');
-        }
-      };
-      controller_response.success({}, res);
-    });
-
-    it('should render a view when res.locals._view is set', function () {
-      var res = {
-        locals : { _view : 'myview' },
-        render : function (view) {
-          view.should.equal('myview');
-        }
-      };
-      controller_response.success({}, res);
-    });
-
-    it('should provide res.locals data to view when rendering', function () {
-      var res = {
-        locals : { _view : 'myview', key : 'value', some : 'data' },
-        render : function (view, data) {
-          data.should.have.property('key').and.equal('value');
-          data.should.have.property('some').and.equal('data');
-        }
-      };
-      controller_response.success({}, res);
-    });
-
-    it('should delete res.locals._view before rendering', function () {
-      var res = {
-        locals : { _view : 'myview', key : 'value' },
-        render : function (view, data) {
-          data.should.not.have.property('_view');
         }
       };
       controller_response.success({}, res);
