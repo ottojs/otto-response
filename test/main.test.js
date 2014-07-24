@@ -81,7 +81,7 @@ describe('Controller - Response', function () {
 
   describe('.not_found()', function () {
 
-    it('should return a 404 status code when route not found', function () {
+    it('should return an ErrorNotFound error when called', function () {
 
       controller_response.not_found({
         method : 'WALK',
