@@ -44,6 +44,41 @@ describe('Controller - Response', function () {
 
   });
 
+  describe('.created()', function () {
+
+    var next = function () {};
+
+    it('should return a 201 status code', function () {
+      var res = {
+        locals : {},
+        send   : function (status, data) {
+          status.should.equal(201);
+        }
+      };
+      controller_response.created({}, res, next);
+    });
+
+    it('should send JSON version of res.locals', function () {
+      var res = {
+        locals : { win : 'lose', some : 'data' },
+        send   : function (status, data) {
+          data.should.have.property('win').and.equal('lose');
+          data.should.have.property('some').and.equal('data');
+        }
+      };
+      controller_response.created({}, res, next);
+    });
+
+    it('should run the callback when finished', function (done) {
+      var res = {
+        locals : {},
+        send   : function () {}
+      };
+      controller_response.created({}, res, done);
+    });
+
+  });
+
   describe('.not_found()', function () {
 
     it('should return a 404 status code when route not found', function () {
