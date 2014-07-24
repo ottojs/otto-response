@@ -9,7 +9,7 @@ var controller_response = require('../lib/index.js');
 
 describe('Controller - Response', function () {
 
-  describe('.success()', function () {
+  describe('.ok()', function () {
 
     var next = function () {};
 
@@ -20,7 +20,7 @@ describe('Controller - Response', function () {
           status.should.equal(200);
         }
       };
-      controller_response.success({}, res, next);
+      controller_response.ok({}, res, next);
     });
 
     it('should send JSON version of res.locals', function () {
@@ -31,7 +31,7 @@ describe('Controller - Response', function () {
           data.should.have.property('some').and.equal('data');
         }
       };
-      controller_response.success({}, res, next);
+      controller_response.ok({}, res, next);
     });
 
     it('should run the callback when finished', function (done) {
@@ -39,7 +39,7 @@ describe('Controller - Response', function () {
         locals : {},
         send   : function () {}
       };
-      controller_response.success({}, res, done);
+      controller_response.ok({}, res, done);
     });
 
   });
