@@ -9,6 +9,24 @@ var controller_response = require('../lib/index.js');
 
 describe('Controller - Response', function () {
 
+  describe('.end()', function () {
+
+    it('should not call next()', function (done) {
+
+      var called = false;
+      controller_response.end({}, {}, function () {
+        called = true;
+      });
+
+      process.nextTick(function () {
+        called.should.equal(false);
+        done();
+      });
+
+    });
+
+  });
+
   describe('.ok()', function () {
 
     var next = function () {};
