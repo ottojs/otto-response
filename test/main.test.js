@@ -27,20 +27,20 @@ describe('Controller - Response', function () {
 
   });
 
-  describe('.mock()', function () {
+  describe('.stub()', function () {
 
     it('should set res.locals to provided data', function () {
 
       // Function 1
       var res1 = { locals : {} };
-      var fn1 = controller_response.mock({ key : 'one' });
+      var fn1 = controller_response.stub({ key : 'one' });
       fn1({}, res1, function () {
         res1.locals.should.eql({ key : 'one' });
       });
 
       // Function 2
       var res2 = { locals : {} };
-      var fn2 = controller_response.mock({ key : 'two' });
+      var fn2 = controller_response.stub({ key : 'two' });
       fn2({}, res2, function () {
         res2.locals.should.eql({ key : 'two' });
       });
