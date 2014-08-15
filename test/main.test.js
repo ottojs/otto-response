@@ -213,4 +213,25 @@ describe('Controller - Response', function () {
 
   });
 
+  describe('.assign()', function () {
+
+    it('should assign output to res.locals[key]', function () {
+      var res = { locals : {} };
+      var assign = controller_response.assign('key', res, function (error) {
+        (error === undefined).should.equal(true);
+        res.locals.should.have.property('key').and.eql({ object : 'data' });
+      });
+      assign(undefined, { object : 'data' });
+    });
+
+    it('should return an error when one is passed', function () {
+      var assign = controller_response.assign('key', {}, function (error) {
+        error.should.have.property('name').and.equal('Error');
+        error.should.have.property('message').and.equal('Passed Error');
+      });
+      assign(new Error('Passed Error'));
+    });
+
+  });
+
 });
