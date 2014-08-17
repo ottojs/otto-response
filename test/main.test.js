@@ -56,8 +56,11 @@ describe('Controller - Response', function () {
     it('should return a 200 status code', function () {
       var res = {
         locals : {},
-        send   : function (status, data) {
+        status : function (status) {
           status.should.equal(200);
+          return {
+            send : function (data) {}
+          };
         }
       };
       controller_response.ok({}, res, next);
@@ -66,9 +69,13 @@ describe('Controller - Response', function () {
     it('should send JSON version of res.locals', function () {
       var res = {
         locals : { key : 'value', some : 'data' },
-        send   : function (status, data) {
-          data.should.have.property('key').and.equal('value');
-          data.should.have.property('some').and.equal('data');
+        status : function (status) {
+          return {
+            send : function (data) {
+              data.should.have.property('key').and.equal('value');
+              data.should.have.property('some').and.equal('data');
+            }
+          };
         }
       };
       controller_response.ok({}, res, next);
@@ -77,7 +84,11 @@ describe('Controller - Response', function () {
     it('should run the callback when finished', function (done) {
       var res = {
         locals : {},
-        send   : function () {}
+        status : function (status) {
+          return {
+            send : function (data) {}
+          };
+        }
       };
       controller_response.ok({}, res, done);
     });
@@ -91,8 +102,11 @@ describe('Controller - Response', function () {
     it('should return a 201 status code', function () {
       var res = {
         locals : {},
-        send   : function (status, data) {
+        status : function (status) {
           status.should.equal(201);
+          return {
+            send : function (data) {}
+          };
         }
       };
       controller_response.created({}, res, next);
@@ -101,9 +115,13 @@ describe('Controller - Response', function () {
     it('should send JSON version of res.locals', function () {
       var res = {
         locals : { win : 'lose', some : 'data' },
-        send   : function (status, data) {
-          data.should.have.property('win').and.equal('lose');
-          data.should.have.property('some').and.equal('data');
+        status : function (status) {
+          return {
+            send : function (data) {
+              data.should.have.property('win').and.equal('lose');
+              data.should.have.property('some').and.equal('data');
+            }
+          };
         }
       };
       controller_response.created({}, res, next);
@@ -112,7 +130,11 @@ describe('Controller - Response', function () {
     it('should run the callback when finished', function (done) {
       var res = {
         locals : {},
-        send   : function () {}
+        status : function (status) {
+          return {
+            send : function (data) {}
+          };
+        }
       };
       controller_response.created({}, res, done);
     });
@@ -149,8 +171,11 @@ describe('Controller - Response', function () {
       var error = new Error();
       error.status = 123;
       controller_response.failure(error, {}, {
-        send : function (status, data) {
+        status : function (status) {
           status.should.equal(123);
+          return {
+            send : function (data) {}
+          };
         }
       });
     });
@@ -158,8 +183,11 @@ describe('Controller - Response', function () {
     it('should return a 500 status code by default', function () {
       var error = new Error();
       controller_response.failure(error, {}, {
-        send : function (status, data) {
+        status : function (status) {
           status.should.equal(500);
+          return {
+            send : function (data) {}
+          };
         }
       });
     });
@@ -167,8 +195,12 @@ describe('Controller - Response', function () {
     it('should return a error object in the response body', function () {
       var error = new Error();
       controller_response.failure(error, {}, {
-        send : function (status, data) {
-          data.should.have.property('error').and.be.type('object');
+        status : function (status) {
+          return {
+            send : function (data) {
+              data.should.have.property('error').and.be.type('object');
+            }
+          };
         }
       });
     });
@@ -177,8 +209,12 @@ describe('Controller - Response', function () {
       var error = new Error();
       error.type = 'something';
       controller_response.failure(error, {}, {
-        send : function (status, data) {
-          data.error.should.have.property('type').and.equal('something');
+        status : function (status) {
+          return {
+            send : function (data) {
+              data.error.should.have.property('type').and.equal('something');
+            }
+          };
         }
       });
     });
@@ -186,8 +222,12 @@ describe('Controller - Response', function () {
     it('should return a "server" error type by default', function () {
       var error = new Error();
       controller_response.failure(error, {}, {
-        send : function (status, data) {
-          data.error.should.have.property('type').and.equal('server');
+        status : function (status) {
+          return {
+            send : function (data) {
+              data.error.should.have.property('type').and.equal('server');
+            }
+          };
         }
       });
     });
@@ -195,8 +235,12 @@ describe('Controller - Response', function () {
     it('should not have a data property by default', function () {
       var error = new Error();
       controller_response.failure(error, {}, {
-        send : function (status, data) {
-          data.error.should.not.have.property('data');
+        status : function (status) {
+          return {
+            send : function (data) {
+              data.error.should.not.have.property('data');
+            }
+          };
         }
       });
     });
@@ -205,8 +249,12 @@ describe('Controller - Response', function () {
       var error = new Error();
       error.data = 'some-data';
       controller_response.failure(error, {}, {
-        send : function (status, data) {
-          data.error.should.have.property('data').and.equal('some-data');
+        status : function (status) {
+          return {
+            send : function (data) {
+              data.error.should.have.property('data').and.equal('some-data');
+            }
+          };
         }
       });
     });
