@@ -141,6 +141,27 @@ describe('Controller - Response', function () {
 
   });
 
+  describe('.redirect()', function () {
+
+    it('should return middleware when given a URL', function () {
+      controller_response.redirect('https://www.google.com').should.be.type('function');
+    });
+
+    it('should call res.redirect() with the provided URL', function (done) {
+
+      var middleware = controller_response.redirect('https://www.google.com');
+
+      var res = {
+        redirect : function (url) {
+          url.should.be.type('string').and.equal('https://www.google.com');
+        }
+      };
+      middleware({}, res, done);
+
+    });
+
+  });
+
   describe('.not_found()', function () {
 
     it('should return an ErrorNotFound error when called', function () {
