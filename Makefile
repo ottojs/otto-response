@@ -14,6 +14,9 @@ install:
 	# Install Node.js Modules
 	npm install
 
+.PHONY: test
+test: delint unit
+
 .PHONY: delint
 delint:
 	# Delint Files with JSHint
@@ -21,9 +24,9 @@ delint:
 		lib/ \
 		test/
 
-.PHONY: test
-test:
-	# Run tests with code coverage
+.PHONY: unit
+unit:
+	# Run unit tests with code coverage
 	./node_modules/istanbul/lib/cli.js cover \
 	./node_modules/mocha/bin/_mocha -- \
 		--recursive \
