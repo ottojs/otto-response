@@ -2,7 +2,7 @@
 'use strict';
 
 // Modules
-require('should');
+var should = require('should');
 
 // Subject
 var controller_response = require('../lib/index.js');
@@ -164,7 +164,7 @@ describe('Controller - Response', function () {
 
   describe('.not_found()', function () {
 
-    it('should return an ErrorNotFound error when called', function () {
+    it('should return an ErrorNotFound error when called without a Route', function () {
 
       controller_response.not_found({
         method : 'WALK',
@@ -180,6 +180,14 @@ describe('Controller - Response', function () {
         error.data.should.have.property('method').and.equal('WALK');
         error.data.should.have.property('path').and.equal('/less-traveled');
 
+      });
+
+    });
+
+    it('should continue if we already found a route', function () {
+
+      controller_response.not_found({ route : {} }, {}, function (error) {
+        should.not.exist(error);
       });
 
     });
