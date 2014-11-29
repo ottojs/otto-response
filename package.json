@@ -7,11 +7,10 @@
     "otto-errors" : "0.0.2"
   },
   "devDependencies" : {
-    "jshint"    : "2.5.10",
-    "mocha"     : "2.0.1",
-    "should"    : "4.3.0",
-    "istanbul"  : "0.3.2",
-    "supertest" : "0.13.0"
+    "jshint"   : "2.5.10",
+    "mocha"    : "2.0.1",
+    "should"   : "4.3.0",
+    "istanbul" : "0.3.2"
   },
   "scripts" : {
     "test" : "make test"
