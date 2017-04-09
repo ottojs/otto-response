@@ -4,18 +4,18 @@
   "repository" : "https://github.com/ottojs/otto-response.git",
   "main" : "./lib/index.js",
   "dependencies" : {
-    "otto-errors" : "0.2.0"
+    "otto-errors" : "0.4.0"
   },
   "devDependencies" : {
-    "jshint"   : "2.8.0",
-    "mocha"    : "2.2.5",
-    "should"   : "7.0.4",
-    "istanbul" : "0.3.18"
+    "jshint"   : "2.9.4",
+    "mocha"    : "3.2.0",
+    "should"   : "11.2.1",
+    "istanbul" : "0.4.5"
   },
   "scripts" : {
     "test" : "make test"
   },
   "engines" : {
-    "node" : "0.12.x"
+    "node" : ">=4.x.x"
   }
 }
